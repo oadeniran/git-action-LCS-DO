@@ -13,6 +13,12 @@ on:
                 description: 'This is the second input to the workflow'
                 required: false
                 type: string
+
+            skip-step:
+                description: 'Skip step if true'
+                default: false
+                type: boolean
+
     
     push:
         branches:
@@ -38,6 +44,7 @@ jobs:
             - run: echo "This is a step without a name"
     
     job2:
+        if: ${{ inputs.skip-step }}
         runs-on: ubuntu-latest
         steps:
             - name: step1
