@@ -2,6 +2,17 @@ name: First action
 
 on:
     workflow_dispatch:
+        inputs:
+            input-one:
+                description: 'This is the first input to the workflow'
+                required: true
+                default: 'one'
+                type: string
+            
+            input-two:
+                description: 'This is the second input to the workflow'
+                required: false
+                type: string
     
     push:
         branches:
@@ -11,6 +22,7 @@ on:
         types:
             - opened
             - reopened
+            - closed
 
         branches:
             - main
