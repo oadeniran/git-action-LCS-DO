@@ -32,8 +32,8 @@ jobs:
     job1:
         runs-on: ubuntu-latest
         steps:
-            - name: step with name
-              run: echo "This is a step with a name"
+            - name: print input one
+              run: echo ${{ inputs.input-one }}
             
             - run: echo "This is a step without a name"
     
