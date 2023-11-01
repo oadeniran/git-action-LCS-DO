@@ -49,3 +49,12 @@ jobs:
         steps:
             - name: step1
               run: echo "This is step 1"
+    
+    job3:
+        runs-on: ubuntu-latest
+        steps:
+            - name: calling the reusable action
+              uses: oadeniran/reusable-action/action-1@main
+              with:
+                input-1: 'input-from-caller'
+
