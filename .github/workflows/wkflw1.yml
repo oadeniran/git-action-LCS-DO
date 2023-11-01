@@ -2,8 +2,34 @@ name: First action
 
 on:
     workflow_dispatch:
+        inputs:
+            input-one:
+                description: 'This is the first input to the workflow'
+                required: true
+                default: 'one'
+                type: string
+            
+            input-two:
+                description: 'This is the second input to the workflow'
+                required: false
+                type: string
+
+            skip-step:
+                description: 'Skip step if true'
+                default: false
+                type: boolean
+
     
     push:
+        branches:
+            - main
+
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - closed
+
         branches:
             - main
     
@@ -12,13 +38,23 @@ jobs:
     job1:
         runs-on: ubuntu-latest
         steps:
-            - name: step with name
-              run: echo "This is a step with a name"
+            - name: print input one
+              run: echo ${{ inputs.input-one }}
             
             - run: echo "This is a step without a name"
     
     job2:
+        if: ${{ inputs.skip-step }}
         runs-on: ubuntu-latest
         steps:
             - name: step1
               run: echo "This is step 1"
+    
+    job3:
+        runs-on: ubuntu-latest
+        steps:
+            - name: calling the reusable action
+              uses: oadeniran/reusable-action/action-1@main
+              with:
+                input-1: 'input-from-caller'
+
